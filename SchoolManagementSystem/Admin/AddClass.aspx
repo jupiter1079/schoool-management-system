@@ -10,12 +10,17 @@
              </div>
              <h2 class="text-center">New Class</h2>
              <div class="row mb-3 mr-lg-5 ml-lg-5 mt-5">
-                 <div class=""
-                 <div>
-                     <label>Class Name</label>
+                 <div class="col-md-6">
+                     <label for="txtClass">Class Name</label>
+                     <asp:TextBox ID="txtClass" runat="Server" CssClass="form-control" placeholder="Enter Class Name" required></asp:TextBox>
                  </div>
              </div>
 
-         </div>
+             <div class="row mb-3 mr-lg-5 ml-lg-5 mt-md-5">
+
+             </div>
+
+           </div>
+        </div>
 
 </asp:Content>
