@@ -23,6 +23,12 @@
                      </div>
                 </div>
 
+                 <div class="row mb-3 mr-lg-5 ml-lg-5">
+                     <div class="col-md-6">
+                         <asp:GridView ID="GridView1" runat="server" CssClass="table table-hover table-bordered"></asp:GridView>
+                     </div>
+                 </div>
+
             </div>
         </div>
 

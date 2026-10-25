@@ -20,6 +20,7 @@ namespace SchoolManagementSystem.Models
                     con.Open();
                 }
                 SqlCommand cmd = new SqlCommand(query, con);
+                cmd.ExecuteNonQuery();
                 con.Close();
             }
 
