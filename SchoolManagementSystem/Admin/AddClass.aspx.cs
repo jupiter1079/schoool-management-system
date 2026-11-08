@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -31,12 +32,12 @@ namespace SchoolManagementSystem.Admin
         {
             try
             {
-                DataTable dt = fn.Fetch("Select * from Class where ClassName = '"+txtClass.Text.Trim()+"' ");
-                if(dt.Rows.Count == 0)
+                DataTable dt = fn.Fetch("Select * from Class where ClassName = '" + txtClass.Text.Trim() + "' ");
+                if (dt.Rows.Count == 0)
                 {
                     string query = "Insert into Class values('" + txtClass.Text.Trim() + "'";
                     fn.Query(query);
-                    lblMsg.Text = query;
+                    lblMsg.Text = "Inserted Succesfully!";
                     lblMsg.CssClass = "alert alert-success";
                     txtClass.Text = string.Empty;
                     GetClass();
@@ -47,9 +48,45 @@ namespace SchoolManagementSystem.Admin
                     lblMsg.CssClass = "alert alert-danger";
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                Response.Write("<script>alert('" + ex.Message+"');</script>");
+                Response.Write("<script>alert('" + ex.Message + "');</script>");
+            }
+        }
+
+        protected void GrindView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            GridView1.PageIndex = e.NewPageIndex;
+            GetClass();
+        }
+
+        protected void GrindView1_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
+        {
+            GridView1.EditIndex = -1;
+            GetClass();
+        }
+
+        protected void GrindView1_RowEditng(object sender, GridViewEditEventArgs e)
+        {
+            GridView1.EditIndex = e.NewEditIndex;
+        }
+
+        protected void GrindView1_RowUpdating(object sender, GridViewUpdateEventArgs e)
+        {
+            try
+            {
+                GridViewRow row = GridView1.Rows[e.RowIndex];
+                int cId = Convert.ToInt32(GridView1.DataKeys[e.RowIndex].Values[0]);
+                string ClassName = (row.FindControl("txtClassEdit") as TextBox).Text;
+                fn.Query("Update Class set ClassName ='" + ClassName + "' where ClassId= '" + cId + "' ");
+                lblMsg.Text = "Class Updated Succesfully!";
+                lblMsg.CssClass = "alert alert-success";
+                GridView1.EditIndex = -1;
+                GetClass();
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script>alert('" + ex.Message + "');</script>");
             }
         }
     }
