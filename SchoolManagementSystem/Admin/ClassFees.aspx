@@ -23,6 +23,7 @@
                    <label for="txtFeesAmounts">Fees (Anual)</label>
                    <asp:TextBox ID="txtFeeAmounts" runat="Server" CssClass="form-control" placeholder="Enter Fees Amount" TextMode="Number" required>
                    </asp:TextBox>
+                   <asp:Label ID="Label2" runat="server" Text="Label"></asp:Label>
                </div>
            </div>
 
@@ -34,7 +35,33 @@
 
                <div class="row mb-3 mr-lg-5 ml-lg-5">
                    <div class="col-md-6">
-                       <asp:GridView ID="GridView1" runat="server"></asp:GridView>
+                       <asp:GridView ID="GridView1" runat="server" CssClass="table-hover table-bordered" EmptyDataText="No record to display!" 
+                           AutoGenerateColumns="False" AllowPaging="true" PageSize="4" OnPageIndexChanging="GridView1_PageIndexChanging" DataKeyNames="FeesId"
+                           OnRowCancelingEdit="GridView1_RowCancelingEdit" OnRowDeleting="GridView1_RowDeleting" OnRowEditing="GridView1_RowEditing" 
+                           OnRowUpdating="GridView1_RowUpdating" Width="1479px">
+                           <Columns>
+                               <asp:BoundField DataField="Sr.No" HeaderText="Sr.No" ReadOnly="True">
+                               <ItemStyle HorizontalAlign="Center" />
+                               </asp:BoundField>
+                               <asp:BoundField DataField="ClassName" HeaderText="Class" ReadOnly="True">
+                               <ItemStyle HorizontalAlign="Center" />
+                               </asp:BoundField>
+                               <asp:TemplateField HeaderText="Fees(Annual)">
+                                   <EditItemTemplate>
+                                       <asp:TextBox ID="TextBox1" runat="server" Text='<%# Eval("FeesAmount") %>' CssClass="form-control"></asp:TextBox>
+                                   </EditItemTemplate>
+                                   <ItemTemplate>
+                                       <asp:Label ID="Label3" runat="server" Text='<%# Eval("FeesAmount") %>'></asp:Label>
+                                   </ItemTemplate>
+                                   <ItemStyle HorizontalAlign="Center" />
+                               </asp:TemplateField>
+                               <asp:CommandField HeaderText="Operation" ShowDeleteButton="True" ShowEditButton="True">
+                               <ItemStyle HorizontalAlign="Center" />
+                               </asp:CommandField>
+                           </Columns>
+                           <HeaderStyle BackColor="#5558C9" ForeColor="White" />
+                       </asp:GridView>
+                       <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
                        </div>
                    </div>
 
